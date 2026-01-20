@@ -15,6 +15,8 @@ export async function register(userData: IRegisterProps) {
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || "Error en el registro");
+  } else {
+    alert('Usuario registrado correctamente');
   }
 }
 
@@ -26,7 +28,7 @@ export async function login(userData: ILoginProps) {
         "Content-type": "application/json",
       },
       body: JSON.stringify(userData),
-    });
+    })
     if(response.ok) {
         const parsedResponse = await response.json();
         alert('Usuario logueado correctamente');

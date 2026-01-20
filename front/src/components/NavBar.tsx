@@ -3,126 +3,115 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
 
-const navLinks = [
-  { label: 'Registro', href: '/register' },
-  { label: 'Carrito', href: '/carrito' },
-  { label: 'Mis Compras', href: '/mis-compras' },
-];
+// Heroicons
+import { UserIcon, ShoppingBagIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { userData, handleLogout } = useAuth();
-  const router = useRouter();
-
-  const logoutAndRedirect = () => {
-    handleLogout();
-    router.push('/');
-  };
 
   return (
-    <nav className="flex items-center border mt-2 mx-4 max-md:w-full max-md:justify-between border-slate-700 px-6 py-4 rounded-full text-white text-sm bg-black">
+    <nav className="w-[60%] mx-auto bg-black text-white text-sm px-6 py-4 flex justify-between items-center border border-slate-700 rounded-full mt-4">
       {/* Logo */}
       <Link href="/">
-        <Image src="/logo-ecommerce.png" alt="Logo Ecommerce" width={60} height={60} />
+        <Image src="/logo-ecommerce.png" alt="Logo Ecommerce" width={50} height={50} />
       </Link>
 
-      {/* Links */}
-      <div className="hidden md:flex items-center gap-6 ml-7">
-        {navLinks.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className="relative overflow-hidden h-6 group"
-          >
-            <span className="block group-hover:-translate-y-full transition-transform duration-300">
-              {item.label}
-            </span>
-            <span className="block absolute top-full left-0 group-hover:-translate-y-full transition-transform duration-300">
-              {item.label}
-            </span>
-          </Link>
-        ))}
-
-        {userData && (
+      {/* Links en escritorio */}
+      <div className="hidden md:flex items-center gap-10">
+        {!userData ? (
+          <span className="text-2xl font-bold text-white drop-shadow-[0_0_10px_white]">
+            ¡Bienvenido a mi Tienda en línea!
+          </span>
+        ) : (
           <>
-            <Link
-              href="/dashboard"
-              className="relative overflow-hidden h-6 group"
-            >
-              <span className="block group-hover:-translate-y-full transition-transform duration-300">
-                Dashboard
-              </span>
-              <span className="block absolute top-full left-0 group-hover:-translate-y-full transition-transform duration-300">
-                Dashboard
-              </span>
+            <Link href="/dashboard" className="flex items-center gap-2 hover:text-indigo-400">
+              <UserIcon className="w-5 h-5" />
+              Mi perfil
             </Link>
-            <button
-              onClick={logoutAndRedirect}
-              className="relative overflow-hidden h-6 group"
-            >
-              <span className="block group-hover:-translate-y-full transition-transform duration-300">
-                Cerrar Sesión
-              </span>
-              <span className="block absolute top-full left-0 group-hover:-translate-y-full transition-transform duration-300">
-                Cerrar Sesión
-              </span>
-            </button>
+            <Link href="/dashboard/orders" className="flex items-center gap-2 hover:text-indigo-400">
+              <ShoppingBagIcon className="w-5 h-5" />
+              Mis compras
+            </Link>
+            <Link href="/carrito" className="flex items-center gap-2 hover:text-indigo-400">
+              <ShoppingCartIcon className="w-5 h-5" />
+              Carrito
+            </Link>
           </>
         )}
       </div>
 
-      {/* Botón separado (luminoso) */}
-      <div className="hidden ml-14 md:flex items-center gap-4">
-        {!userData && (
-          <Link href="/login">
-            <button className="bg-white hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300">
-              Iniciar Sesión
-            </button>
+      {/* Botón sesión en escritorio */}
+      <div className="hidden md:flex items-center gap-6">
+        {!userData ? (
+          <Link
+            href="/login"
+            className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:shadow-[0_0_20px_white] transition duration-300"
+          >
+            Iniciar Sesión
           </Link>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:shadow-[0_0_20px_white] transition duration-300"
+          >
+            Cerrar Sesión
+          </button>
         )}
       </div>
 
-      {/* Mobile toggle */}
-      <button
-        onClick={() => setMenuOpen(!menuOpen)}
-        className="md:hidden text-white"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
-          viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+      {/* Botón hamburguesa en móvil */}
+      <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-white">
+        {menuOpen ? "✖" : "☰"}
       </button>
 
-      {/* Mobile menu */}
+      {/* Menú móvil */}
       {menuOpen && (
-        <div className="absolute top-full left-0 bg-black w-full flex-col items-center gap-4 flex py-4">
-          {navLinks.map((item) => (
-            <Link key={item.label} href={item.href} className="hover:text-indigo-600">
-              {item.label}
-            </Link>
-          ))}
-
-          {userData ? (
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-[60%] bg-black flex flex-col items-center gap-8 py-6 border border-slate-700 rounded-lg">
+          {!userData ? (
             <>
-              <Link href="/dashboard" className="hover:text-indigo-600">
-                Dashboard
+              <span className="text-xl font-bold text-white drop-shadow-[0_0_10px_white]">
+                ¡Bienvenido a mi Tienda en línea!
+              </span>
+              <Link
+                href="/login"
+                className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:shadow-[0_0_20px_white] transition duration-300"
+              >
+                Iniciar Sesión
               </Link>
-              <button onClick={logoutAndRedirect} className="hover:text-indigo-600">
-                Cerrar Sesión
-              </button>
             </>
           ) : (
-            <Link href="/login">
-              <button className="bg-white hover:shadow-[0px_0px_30px_14px] shadow-[0px_0px_30px_7px] hover:shadow-white/50 shadow-white/50 text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition duration-300">
-                Iniciar Sesión
+            <>
+              <Link href="/dashboard" className="flex items-center gap-2 hover:text-indigo-400">
+                <UserIcon className="w-5 h-5" />
+                Mi perfil
+              </Link>
+              <Link href="/dashboard/orders" className="flex items-center gap-2 hover:text-indigo-400">
+                <ShoppingBagIcon className="w-5 h-5" />
+                Mis compras
+              </Link>
+              <Link href="/carrito" className="flex items-center gap-2 hover:text-indigo-400">
+                <ShoppingCartIcon className="w-5 h-5" />
+                Carrito
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:shadow-[0_0_20px_white] transition duration-300"
+              >
+                Logout
               </button>
-            </Link>
+            </>
           )}
         </div>
       )}
     </nav>
   );
 }
+
+
+
+
+
+
 

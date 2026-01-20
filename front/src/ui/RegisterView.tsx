@@ -5,6 +5,7 @@ import { register } from '@/services/authService';
 import { IRegisterProps } from '@/types/types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const RegisterView = () => {
   const router = useRouter();
@@ -17,18 +18,18 @@ const RegisterView = () => {
   };
 
   const handleSubmit = async (values: IRegisterProps) => {
-  try {
-    await register(values);
-    alert("Usuario registrado correctamente");
-    router.push("/login");
-  } catch (error: any) {
-    if (error.message === "User already exists") {
-      alert("Este email ya está registrado. Por favor usa otro.");
-    } else {
-      alert("Ocurrió un error al registrar el usuario. Inténtalo nuevamente.");
+    try {
+      await register(values);
+      alert("Usuario registrado correctamente");
+      router.push("/login");
+    } catch (error: any) {
+      if (error.message === "User already exists") {
+        alert("Este email ya está registrado. Por favor usa otro.");
+      } else {
+        alert("Ocurrió un error al registrar el usuario. Inténtalo nuevamente.");
+      }
     }
-  }
-};
+  };
 
   return (
     <div className="flex items-center justify-center px-4 py-12">
@@ -101,6 +102,17 @@ const RegisterView = () => {
             >
               Registrarse
             </button>
+
+            {/* Pregunta hacia login */}
+            <p className="text-center text-sm mt-4">
+              ¿Ya tienes cuenta?{" "}
+              <Link
+                href="/login"
+                className="text-indigo-600 font-semibold hover:underline transition duration-300"
+              >
+                Inicia sesión aquí
+              </Link>
+            </p>
           </Form>
         </Formik>
       </div>
@@ -109,4 +121,5 @@ const RegisterView = () => {
 };
 
 export default RegisterView;
+
 

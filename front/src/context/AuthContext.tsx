@@ -10,7 +10,7 @@ export interface IAuthContextProps {
     handleLogout: () => void;
 }
 
-export const AuthConText = createContext<IAuthContextProps>({
+export const AuthContext = createContext<IAuthContextProps>({
     userData: null,
     setUserData: () => {},
     handleLogout: () => {}
@@ -44,10 +44,10 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({children}) => {
     }
 
     return (
-        <AuthConText.Provider value={{userData, setUserData, handleLogout}}>
+        <AuthContext.Provider value={{userData, setUserData, handleLogout}}>
             {children}
-        </AuthConText.Provider>
+        </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => useContext(AuthConText); 
+export const useAuth = () => useContext(AuthContext); 
