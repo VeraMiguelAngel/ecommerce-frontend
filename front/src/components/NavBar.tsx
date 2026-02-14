@@ -16,7 +16,7 @@ export default function Navbar() {
       {/* Logo */}
       <Link href="/">
         <Image src="/logo-ecommerce.png" alt="Logo Ecommerce" width={50} height={50} />
-      </Link>
+      </Link>      
 
       {/* Links en escritorio */}
       <div className="hidden md:flex items-center gap-10">
@@ -37,7 +37,7 @@ export default function Navbar() {
             <Link href="/carrito" className="flex items-center gap-2 hover:text-indigo-400">
               <ShoppingCartIcon className="w-5 h-5" />
               Carrito
-            </Link>
+            </Link>            
           </>
         )}
       </div>

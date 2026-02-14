@@ -9,23 +9,25 @@ const ProductDetailView: React.FC<IProducts> = ({id, name, image, price, stock, 
   const router = useRouter();
 
   const handleAddToCart = () => {
-    if (userData?.token) {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const productExist = cart.some((product: IProducts) => product.id === id);
-      if(productExist) {
-        alert('Ya tienes este producto en el carrito');
-        router.push('/carrito');
-      } else {
-        cart.push({id, name, image, price, stock, description});
-        localStorage.setItem('cart', JSON.stringify(cart)); 
-        alert('Producto agregado al carrito.');
-        router.push('/carrito');
-      }
+  if (userData?.token) {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const productExist = cart.some((product: IProducts) => String(product.id) === String(id));
+
+    if (productExist) {
+      alert('Ya tienes este producto en el carrito');
+      router.push('/carrito');
     } else {
-      alert('Debes iniciar sesión para agregar productos al carrito.');
-      router.push('/login');
+      cart.push({ id, name, image, price, stock, description });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Producto agregado al carrito.');
+      router.push('/carrito');
     }
+  } else {
+    alert('Debes iniciar sesión para agregar productos al carrito.');
+    router.push('/login');
   }
+};
+
         
   return (
     <div className="bg-gray-900 text-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto mt-10">
@@ -51,7 +53,7 @@ const ProductDetailView: React.FC<IProducts> = ({id, name, image, price, stock, 
               Agregar al carrito
             </button>
 
-            {/* 🔥 Botón para volver al home */}
+            
             <button
               onClick={() => router.push("/")}
               className="w-full bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:shadow-[0_0_20px_white] transition duration-300"

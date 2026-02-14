@@ -20,6 +20,7 @@ const CartView = () => {
         (acc: number, product: IProducts) => acc + product.price,
         0
       );
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTotal(totalPrice);
       setCart(storedCart);
     }

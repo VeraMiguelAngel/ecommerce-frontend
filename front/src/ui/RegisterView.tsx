@@ -19,8 +19,7 @@ const RegisterView = () => {
 
   const handleSubmit = async (values: IRegisterProps) => {
     try {
-      await register(values);
-      alert("Usuario registrado correctamente");
+      await register(values);      
       router.push("/login");
     } catch (error: any) {
       if (error.message === "User already exists") {
@@ -42,7 +41,7 @@ const RegisterView = () => {
         >
           <Form className="flex flex-col gap-4">
             <div>
-              <label htmlFor="name" className="block mb-1 text-sm">Nombre completo</label>
+              <label htmlFor="name" className="block mb-1 text-sm">Nombre</label>
               <Field
                 type="text"
                 name="name"
