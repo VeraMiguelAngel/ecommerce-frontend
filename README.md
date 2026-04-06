@@ -8,15 +8,15 @@ Aplicación de ecommerce desarrollada con **React + Next.js**, enfocada en la es
 ## 👨‍💻 Mi rol en el proyecto
 - Desarrollo completo del **frontend**.  
 - Implementación de componentes funcionales y vistas dinámicas (Navbar, catálogo, carrito, detalle de producto).  
-- Integración con el backend provisto por Henry.  
-- Configuración y despliegue en **Vercel**.  
+- Integración con el backend provisto por Henry.
+  
 
 ---
 
 ## 🚀 Tecnologías utilizadas
 - **Frontend:** React, Next.js, TailwindCSS  
-- **Backend:** API provista por Henry (Node.js, Express)  
-- **Cloud:** Vercel (frontend)  
+- **Backend:** API provista por Henry (Node.js, Express)
+- **Base de datos:** PostgreSql  
 
 ---
 
@@ -35,11 +35,12 @@ Aplicación de ecommerce desarrollada con **React + Next.js**, enfocada en la es
    git clone https://github.com/VeraMiguelAngel/ecommerce-frontend.git
 
 2. Instalar dependencias:
+ ```bash
 npm install
 
-3. Ejecutar en modo desarrollo:
+4. Ejecutar en modo desarrollo:
 npm run dev
 
-4. Abrir en el navegador:
+5. Abrir en el navegador:
 http://localhost:3000
 
